@@ -1,4 +1,4 @@
-import { ChevronRight, Command, Languages, Menu, Search, WifiOff } from 'lucide-react'
+import { ChevronRight, Command, Languages, Menu, Search } from 'lucide-react'
 import { useLocation } from 'react-router-dom'
 import { getCategory, isCategoryId } from '../../registry/categories'
 import { getTool, TOTAL_TOOLS } from '../../registry/tools'
