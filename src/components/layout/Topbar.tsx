@@ -69,10 +69,6 @@ export function Topbar({ onMenu, onSearch }: TopbarProps) {
             <Languages className="h-3 w-3 text-cyan/70" />
             {language.toUpperCase()}
           </button>
-          <span className="chip hidden md:inline-flex">
-            <WifiOff className="h-3 w-3 text-cyan/70" />
-            Local-first
-          </span>
           <span className="chip hidden lg:inline-flex">{TOTAL_TOOLS} tools</span>
           <button
             type="button"
