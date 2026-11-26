@@ -207,8 +207,8 @@ export const INDONESIAN: Record<string, string> = {
   'Your data stays local': 'Data Anda tetap lokal',
   'ONEV — one workspace, every utility.': 'ONEV — satu ruang kerja, semua utilitas.',
   'Built for people who build things.': 'Dibuat untuk orang yang membuat sesuatu.',
-  'Private by design — everything runs locally.':
-    'Privasi sejak awal — semuanya berjalan lokal.',
+  'Private by onev.':
+    'Privasi by onev.',
   'Search across names, descriptions, categories and keywords.':
     'Cari berdasarkan nama, deskripsi, kategori, dan kata kunci.',
   'Type a tool name or keyword…': 'Ketik nama alat atau kata kunci…',
