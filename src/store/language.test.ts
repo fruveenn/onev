@@ -25,4 +25,24 @@ describe('translate', () => {
 
     expect(missing).toEqual([])
   })
+
+  it('keeps Indonesian copy free of leftover English words', () => {
+    const banned = [
+      ' by ',
+      'browser',
+      'offline',
+      'payload',
+      'wrapper',
+      'stylesheet',
+      'query',
+      'convert',
+      'color',
+    ]
+    const mixed = Object.entries(INDONESIAN).filter(([, value]) => {
+      const plain = value.replace(/\{\w+\}/g, ' ').toLowerCase()
+      return banned.some((word) => plain.includes(word))
+    })
+
+    expect(mixed).toEqual([])
+  })
 })

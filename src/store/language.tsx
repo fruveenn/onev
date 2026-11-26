@@ -83,7 +83,7 @@ export const INDONESIAN: Record<string, string> = {
   'Strip whitespace from JSON and compare the size saved.':
     'Hapus spasi berlebih dari JSON dan bandingkan ukuran yang hemat.',
   'Beautify stylesheets with Prettier in your browser.':
-    'Rapikan stylesheet dengan Prettier langsung di browser.',
+    'Rapikan lembar gaya dengan Prettier langsung di peramban.',
   'Format JS or JSX consistently without leaving the page.':
     'Format JS atau JSX secara konsisten tanpa meninggalkan halaman.',
   'Tidy markup with reliable, configurable formatting.':
@@ -99,7 +99,7 @@ export const INDONESIAN: Record<string, string> = {
   'Encode and decode UTF-8 text with Base64.':
     'Enkode dan dekode teks UTF-8 dengan Base64.',
   'Percent-encode query values and decode them safely.':
-    'Enkode persentase nilai query dan dekode dengan aman.',
+    'Enkode persentase nilai kueri dan dekode dengan aman.',
   'Switch between camel, snake, kebab, title and more.':
     'Ganti antara camel, snake, kebab, title, dan lainnya.',
   'Replace text with regex, whole-word and case options.':
@@ -150,7 +150,7 @@ export const INDONESIAN: Record<string, string> = {
   'Joules, calories, watt-hours and electronvolts.':
     'Joule, kalori, watt-jam, dan elektronvolt.',
   'Live exchange rates with an offline fallback table.':
-    'Kurs terkini dengan tabel cadangan saat offline.',
+    'Kurs terkini dengan tabel cadangan saat tanpa jaringan.',
   'Convert between hex, RGB and HSL with live preview.':
     'Konversi hex, RGB, dan HSL dengan pratinjau langsung.',
   'Build complementary, analogous and monochromatic palettes.':
@@ -158,7 +158,7 @@ export const INDONESIAN: Record<string, string> = {
   'Check WCAG contrast ratios for foreground and background.':
     'Periksa rasio kontras WCAG antara teks dan latar.',
   'Scale images precisely, entirely in your browser.':
-    'Ubah ukuran gambar dengan presisi, sepenuhnya di browser.',
+    'Ubah ukuran gambar dengan presisi, sepenuhnya di peramban.',
   'Crop images visually and export the result.':
     'Potong gambar secara visual dan ekspor hasilnya.',
   'Convert PNG, JPG and WebP without uploading anything.':
@@ -168,19 +168,19 @@ export const INDONESIAN: Record<string, string> = {
   'Encrypt text with AES-GCM using a password you choose.':
     'Enkripsi teks dengan AES-GCM memakai kata sandi pilihan Anda.',
   'Decrypt ONEV AES-GCM payloads with the matching password.':
-    'Dekripsi payload AES-GCM ONEV dengan kata sandi yang sesuai.',
+    'Dekripsi muatan AES-GCM ONEV dengan kata sandi yang sesuai.',
   'Encrypt JS, TS, Python and other source with a password or recovery key.':
     'Enkripsi kode JS, TS, Python, dan lain-lain dengan kata sandi atau kunci pemulihan.',
   'Restore encrypted source from an ONEV payload or runnable wrapper.':
-    'Pulihkan kode terenkripsi dari payload ONEV atau wrapper yang bisa dijalankan.',
+    'Pulihkan kode terenkripsi dari muatan ONEV atau pembungkus yang bisa dijalankan.',
   'Try your own candidate list against an ONEV payload you own. Capped and local.':
-    'Coba daftar kandidat Anda sendiri pada payload ONEV milik Anda. Terbatas dan lokal.',
+    'Coba daftar kandidat Anda sendiri pada muatan ONEV milik Anda. Terbatas dan lokal.',
   'A persistent, no-frills checklist for repeatable tasks.':
     'Daftar tugas sederhana yang tersimpan untuk pekerjaan berulang.',
   'Save links locally with tags and quick search.':
-    'Simpan tautan secara lokal dengan tag dan pencarian cepat.',
+    'Simpan tautan secara lokal dengan penanda dan pencarian cepat.',
   'Precision timer with laps, kept in your browser tab.':
-    'Penghitung waktu presisi dengan putaran, tersimpan di tab browser.',
+    'Penghitung waktu presisi dengan putaran, tersimpan di peramban.',
   'Create downloadable QR codes for text, links or Wi-Fi.':
     'Buat kode QR yang bisa diunduh untuk teks, tautan, atau Wi-Fi.',
 
@@ -203,20 +203,20 @@ export const INDONESIAN: Record<string, string> = {
     '{count} utilitas fokus untuk kode, teks, warna, gambar, dan matematika sehari-hari. Tanpa daftar akun, tanpa unggahan — hanya alat yang tidak mengganggu.',
   'The ones people reach for most.': 'Alat yang paling sering dipakai.',
   'Browse the full {count}-tool library.': 'Jelajahi seluruh pustaka {count} alat.',
-  'Instant, offline-first': 'Instan, mengutamakan offline',
+  'Instant, offline-first': 'Instan, bisa dipakai tanpa jaringan',
   'Your data stays local': 'Data Anda tetap lokal',
   'ONEV — one workspace, every utility.': 'ONEV — satu ruang kerja, semua utilitas.',
   'Built for people who build things.': 'Dibuat untuk orang yang membuat sesuatu.',
   'Private by onev.':
-    'Privasi by onev.',
+    'Privasi oleh ONEV.',
   'Search across names, descriptions, categories and keywords.':
     'Cari berdasarkan nama, deskripsi, kategori, dan kata kunci.',
   'Type a tool name or keyword…': 'Ketik nama alat atau kata kunci…',
   'No tools found': 'Tidak ada alat ditemukan',
   'Try a broader term like “convert”, “text” or “color”.':
-    'Coba istilah yang lebih luas seperti “convert”, “text”, atau “color”.',
+    'Coba istilah yang lebih luas seperti “konversi”, “teks”, atau “warna”.',
   'Your pinned tools, saved locally in this browser.':
-    'Alat yang Anda sematkan, tersimpan lokal di browser ini.',
+    'Alat yang Anda sematkan, tersimpan lokal di peramban ini.',
   'Tap the star on any tool card to pin it here for quick access.':
     'Ketuk bintang pada kartu alat untuk menyematkannya di sini.',
   'The last tools you opened, stored locally.':
