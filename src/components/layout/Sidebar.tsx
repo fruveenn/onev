@@ -115,7 +115,7 @@ export function Sidebar({ open, onClose, onSearch }: SidebarProps) {
         <div className="shrink-0 border-t border-line/70 px-5 py-4">
           <div className="flex items-center gap-2 text-[11px] text-slate-500">
             <Heart className="h-3 w-3 text-cyan/70" />
-            {t('Private by design — everything runs locally.')}
+            {t('Private by onev.')}
           </div>
           <div className="mt-1.5 flex items-center gap-1.5 font-mono text-[10px] text-slate-600">
             <PanelLeftClose className="h-3 w-3" /> ONEV v1.0.0
