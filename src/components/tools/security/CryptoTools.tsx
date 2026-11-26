@@ -159,7 +159,13 @@ export function TextEncryptor() {
             ) : undefined
           }
         >
-          <ResultBox value={result} minHeight="300px" copyLabel="Copy payload" />
+          <ResultBox
+            value={result}
+            minHeight="300px"
+            copyLabel="Copy payload"
+            downloadFilename="onev-encrypted.json"
+            downloadMime="application/json"
+          />
         </Panel>
 
         <Panel title="How it works">
@@ -247,7 +253,13 @@ export function TextDecryptor() {
             ) : undefined
           }
         >
-          <ResultBox value={result} mono={false} minHeight="300px" copyLabel="Copy plaintext" />
+          <ResultBox
+            value={result}
+            mono={false}
+            minHeight="300px"
+            copyLabel="Copy plaintext"
+            downloadFilename="onev-decrypted.txt"
+          />
         </Panel>
 
         <Panel title="Good to know">

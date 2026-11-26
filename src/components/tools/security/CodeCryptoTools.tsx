@@ -402,6 +402,10 @@ export function CodeEncryptor() {
             value={result}
             minHeight="300px"
             copyLabel={wrapperMode ? 'Copy wrapper' : 'Copy payload'}
+            downloadFilename={
+              wrapperMode ? `onev-restored.${languageInfo.extension}` : 'onev-code-encrypted.json'
+            }
+            downloadMime={wrapperMode ? 'text/plain' : 'application/json'}
           />
         </Panel>
 
@@ -563,7 +567,12 @@ export function CodeDecryptor() {
             </select>
           </Field>
           <div className="mt-4">
-            <ResultBox value={result} minHeight="300px" copyLabel="Copy source" />
+            <ResultBox
+              value={result}
+              minHeight="300px"
+              copyLabel="Copy source"
+              downloadFilename={`restored.${languageInfo.extension}`}
+            />
           </div>
         </Panel>
 
