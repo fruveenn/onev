@@ -1,0 +1,688 @@
+import { lazy } from 'react'
+import {
+  Activity,
+  AlignLeft,
+  ArrowDownUp,
+  Binary,
+  Bookmark,
+  Boxes,
+  Braces,
+  Cake,
+  Calculator,
+  CaseSensitive,
+  CircleDollarSign,
+  Clock3,
+  Code2,
+  Crop,
+  Database,
+  Droplet,
+  FileCode,
+  FileCode2,
+  FileImage,
+  FileJson,
+  Feather,
+  Fingerprint,
+  FlipHorizontal,
+  Gauge,
+  Grid2X2,
+  Hash,
+  KeyRound,
+  Layers,
+  Link2,
+  ListChecks,
+  ListOrdered,
+  Lock,
+  Unlock,
+  Maximize,
+  Maximize2,
+  Minimize2,
+  Palette,
+  Percent,
+  QrCode,
+  ReceiptText,
+  Repeat2,
+  Replace,
+  Ruler,
+  Sigma,
+  Smile,
+  Sun,
+  Thermometer,
+  Timer,
+  Type,
+  Wallet,
+  Weight,
+  Zap,
+} from 'lucide-react'
+import type { ToolMeta } from './types'
+
+const from = (loader: () => Promise<Record<string, any>>, name: string) =>
+  lazy(() => loader().then((module) => ({ default: module[name] })))
+
+const generators = () => import('../components/tools/generators/GeneratorTools')
+const jsonTools = () => import('../components/tools/formatters/JsonTools')
+const codeTools = () => import('../components/tools/formatters/CodeFormatter')
+const textTools = () => import('../components/tools/text/TextTools')
+const calculators = () => import('../components/tools/calculators/CalculatorTools')
+const unitTools = () => import('../components/tools/converters/UnitConverter')
+const currencyTools = () => import('../components/tools/converters/CurrencyConverter')
+const colorTools = () => import('../components/tools/color/ColorTools')
+const imageTools = () => import('../components/tools/image/ImageTools')
+const securityTools = () => import('../components/tools/security/CryptoTools')
+const codeCryptoTools = () => import('../components/tools/security/CodeCryptoTools')
+const utilityTools = () => import('../components/tools/utilities/UtilityTools')
+
+export const TOOLS: ToolMeta[] = [
+  // ---------------------------------------------------------------- Generators
+  {
+    id: 'password-generator',
+    name: 'Password Generator',
+    description: 'Create strong, random passwords with custom character rules.',
+    category: 'generators',
+    icon: KeyRound,
+    keywords: ['secure', 'random', 'credential', 'entropy'],
+    component: from(generators, 'PasswordGenerator'),
+    featured: true,
+  },
+  {
+    id: 'number-generator',
+    name: 'Random Number Generator',
+    description: 'Pick random integers or decimals, with optional uniqueness.',
+    category: 'generators',
+    icon: Hash,
+    keywords: ['rng', 'lottery', 'pick', 'integer'],
+    component: from(generators, 'RandomNumberGenerator'),
+  },
+  {
+    id: 'gradient-generator',
+    name: 'Gradient Generator',
+    description: 'Generate and fine-tune CSS gradients with copied code.',
+    category: 'generators',
+    icon: Palette,
+    keywords: ['css', 'background', 'color', 'linear'],
+    component: from(generators, 'GradientGenerator'),
+  },
+  {
+    id: 'emoji-picker',
+    name: 'Emoji Picker',
+    description: 'Search and copy emojis by name across nine categories.',
+    category: 'generators',
+    icon: Smile,
+    keywords: ['emoji', 'symbol', 'copy', 'unicode'],
+    component: from(generators, 'EmojiPicker'),
+  },
+  {
+    id: 'uuid-generator',
+    name: 'UUID Generator',
+    description: 'Generate RFC 4122 version 4 identifiers in bulk.',
+    category: 'generators',
+    icon: Fingerprint,
+    keywords: ['guid', 'uuid', 'identifier', 'v4'],
+    component: from(generators, 'UuidGenerator'),
+  },
+  {
+    id: 'lorem-generator',
+    name: 'Lorem Ipsum Generator',
+    description: 'Placeholder paragraphs, sentences or words on demand.',
+    category: 'generators',
+    icon: Feather,
+    keywords: ['placeholder', 'dummy', 'filler', 'sample'],
+    component: from(generators, 'LoremGenerator'),
+  },
+
+  // ---------------------------------------------------------------- Formatters
+  {
+    id: 'json-formatter',
+    name: 'JSON Formatter',
+    description: 'Pretty-print JSON with adjustable indentation and syntax colors.',
+    category: 'formatters',
+    icon: Braces,
+    keywords: ['json', 'prettify', 'beautify', 'pretty'],
+    component: from(jsonTools, 'JsonFormatter'),
+    featured: true,
+  },
+  {
+    id: 'json-validator',
+    name: 'JSON Validator',
+    description: 'Check JSON syntax and get the exact location of errors.',
+    category: 'formatters',
+    icon: FileJson,
+    keywords: ['json', 'validate', 'check', 'syntax'],
+    component: from(jsonTools, 'JsonValidator'),
+  },
+  {
+    id: 'json-minifier',
+    name: 'JSON Minifier',
+    description: 'Strip whitespace from JSON and compare the size saved.',
+    category: 'formatters',
+    icon: Minimize2,
+    keywords: ['json', 'minify', 'compress', 'compact'],
+    component: from(jsonTools, 'JsonMinifier'),
+  },
+  {
+    id: 'css-formatter',
+    name: 'CSS Formatter',
+    description: 'Beautify stylesheets with Prettier in your browser.',
+    category: 'formatters',
+    icon: FileCode2,
+    keywords: ['css', 'prettier', 'beautify', 'style'],
+    component: from(codeTools, 'CssFormatter'),
+  },
+  {
+    id: 'javascript-formatter',
+    name: 'JavaScript Formatter',
+    description: 'Format JS or JSX consistently without leaving the page.',
+    category: 'formatters',
+    icon: Code2,
+    keywords: ['javascript', 'js', 'jsx', 'prettier'],
+    component: from(codeTools, 'JavaScriptFormatter'),
+  },
+  {
+    id: 'html-formatter',
+    name: 'HTML Formatter',
+    description: 'Tidy markup with reliable, configurable formatting.',
+    category: 'formatters',
+    icon: FileCode,
+    keywords: ['html', 'markup', 'prettier', 'tidy'],
+    component: from(codeTools, 'HtmlFormatter'),
+  },
+
+  // ---------------------------------------------------------------------- Text
+  {
+    id: 'text-to-slug',
+    name: 'Text to Slug',
+    description: 'Turn headings into clean, URL-friendly slugs.',
+    category: 'text',
+    icon: Type,
+    keywords: ['url', 'seo', 'permalink', 'hyphen'],
+    component: from(textTools, 'TextToSlug'),
+  },
+  {
+    id: 'slug-to-text',
+    name: 'Slug to Text',
+    description: 'Convert kebab or snake case back into readable labels.',
+    category: 'text',
+    icon: AlignLeft,
+    keywords: ['slug', 'title', 'readable', 'decoder'],
+    component: from(textTools, 'SlugToText'),
+  },
+  {
+    id: 'text-to-binary',
+    name: 'Text to Binary',
+    description: 'Encode UTF-8 text as space-separated binary bytes.',
+    category: 'text',
+    icon: Binary,
+    keywords: ['bits', 'encode', 'utf-8', 'bytes'],
+    component: from(textTools, 'TextToBinary'),
+  },
+  {
+    id: 'binary-to-text',
+    name: 'Binary to Text',
+    description: 'Decode binary bytes back into human-readable text.',
+    category: 'text',
+    icon: Boxes,
+    keywords: ['bits', 'decode', 'utf-8', 'bytes'],
+    component: from(textTools, 'BinaryToText'),
+  },
+  {
+    id: 'base64-encoder',
+    name: 'Base64 Encoder / Decoder',
+    description: 'Encode and decode UTF-8 text with Base64.',
+    category: 'text',
+    icon: Braces,
+    keywords: ['base64', 'encode', 'decode'],
+    component: from(textTools, 'Base64Encoder'),
+  },
+  {
+    id: 'url-encoder',
+    name: 'URL Encoder / Decoder',
+    description: 'Percent-encode query values and decode them safely.',
+    category: 'text',
+    icon: Link2,
+    keywords: ['url', 'percent', 'query', 'encode'],
+    component: from(textTools, 'UrlEncoder'),
+  },
+  {
+    id: 'case-converter',
+    name: 'Case Converter',
+    description: 'Switch between camel, snake, kebab, title and more.',
+    category: 'text',
+    icon: CaseSensitive,
+    keywords: ['camelcase', 'snake_case', 'kebab-case', 'uppercase'],
+    component: from(textTools, 'CaseConverter'),
+  },
+  {
+    id: 'find-replace',
+    name: 'Find and Replace',
+    description: 'Replace text with regex, whole-word and case options.',
+    category: 'text',
+    icon: Replace,
+    keywords: ['regex', 'search', 'substitute'],
+    component: from(textTools, 'FindReplace'),
+  },
+  {
+    id: 'word-counter',
+    name: 'Word Counter',
+    description: 'Live word, character, sentence and reading-time stats.',
+    category: 'text',
+    icon: ListOrdered,
+    keywords: ['count', 'characters', 'reading time', 'essay'],
+    component: from(textTools, 'WordCounter'),
+    featured: true,
+  },
+  {
+    id: 'markdown-preview',
+    name: 'Markdown Preview',
+    description: 'Write Markdown and preview sanitized HTML instantly.',
+    category: 'text',
+    icon: FileCode,
+    keywords: ['markdown', 'md', 'preview', 'html'],
+    component: from(textTools, 'MarkdownPreview'),
+  },
+  {
+    id: 'text-repeater',
+    name: 'Text Repeater',
+    description: 'Repeat any text a set number of times with a separator.',
+    category: 'text',
+    icon: Repeat2,
+    keywords: ['repeat', 'duplicate', 'bulk'],
+    component: from(textTools, 'TextRepeater'),
+  },
+  {
+    id: 'text-reverser',
+    name: 'Text Reverser',
+    description: 'Flip text character-by-character, instantly.',
+    category: 'text',
+    icon: FlipHorizontal,
+    keywords: ['reverse', 'mirror', 'flip'],
+    component: from(textTools, 'TextReverser'),
+  },
+  {
+    id: 'line-sorter',
+    name: 'Line Sorter',
+    description: 'Sort lines alphabetically and remove duplicates.',
+    category: 'text',
+    icon: ArrowDownUp,
+    keywords: ['sort', 'lines', 'unique', 'dedupe'],
+    component: from(textTools, 'LineSorter'),
+  },
+
+  // --------------------------------------------------------------- Calculators
+  {
+    id: 'basic-calculator',
+    name: 'Basic Calculator',
+    description: 'Keyboard-friendly arithmetic with parentheses and powers.',
+    category: 'calculators',
+    icon: Calculator,
+    keywords: ['math', 'arithmetic', 'expression'],
+    component: from(calculators, 'BasicCalculator'),
+  },
+  {
+    id: 'percentage-calculator',
+    name: 'Percentage Calculator',
+    description: 'Find percentages, changes and increases in one place.',
+    category: 'calculators',
+    icon: Percent,
+    keywords: ['percent', '%', 'discount', 'increase'],
+    component: from(calculators, 'PercentageCalculator'),
+  },
+  {
+    id: 'age-calculator',
+    name: 'Age Calculator',
+    description: 'Calculate exact age in years, months and days.',
+    category: 'calculators',
+    icon: Cake,
+    keywords: ['birthday', 'date', 'age'],
+    component: from(calculators, 'AgeCalculator'),
+  },
+  {
+    id: 'split-bill',
+    name: 'Split Bill Calculator',
+    description: 'Split a bill with tax and tip across any number of people.',
+    category: 'calculators',
+    icon: ReceiptText,
+    keywords: ['tip', 'bill', 'group', 'dinner'],
+    component: from(calculators, 'SplitBillCalculator'),
+  },
+  {
+    id: 'average-calculator',
+    name: 'Average Calculator',
+    description: 'Mean, median, range and more from a list of numbers.',
+    category: 'calculators',
+    icon: Sigma,
+    keywords: ['mean', 'median', 'statistics', 'average'],
+    component: from(calculators, 'AverageCalculator'),
+  },
+  {
+    id: 'tip-calculator',
+    name: 'Tip Calculator',
+    description: 'Work out the right tip and total in seconds.',
+    category: 'calculators',
+    icon: Wallet,
+    keywords: ['gratuity', 'tip', 'restaurant'],
+    component: from(calculators, 'TipCalculator'),
+  },
+
+  // ---------------------------------------------------------------- Converters
+  {
+    id: 'length-converter',
+    name: 'Length Converter',
+    description: 'Convert between metric, imperial and nautical lengths.',
+    category: 'converters',
+    icon: Ruler,
+    keywords: ['metre', 'foot', 'mile', 'inch'],
+    component: from(unitTools, 'UnitConverter'),
+    props: { groupId: 'length' },
+  },
+  {
+    id: 'weight-converter',
+    name: 'Weight Converter',
+    description: 'Kilograms, pounds, ounces, stones and tonnes.',
+    category: 'converters',
+    icon: Weight,
+    keywords: ['mass', 'kg', 'lb', 'ounce'],
+    component: from(unitTools, 'UnitConverter'),
+    props: { groupId: 'weight' },
+  },
+  {
+    id: 'temperature-converter',
+    name: 'Temperature Converter',
+    description: 'Celsius, Fahrenheit and Kelvin without guesswork.',
+    category: 'converters',
+    icon: Thermometer,
+    keywords: ['celsius', 'fahrenheit', 'kelvin', 'weather'],
+    component: from(unitTools, 'UnitConverter'),
+    props: { groupId: 'temperature' },
+    featured: true,
+  },
+  {
+    id: 'area-converter',
+    name: 'Area Converter',
+    description: 'Square units, hectares and acres.',
+    category: 'converters',
+    icon: Maximize,
+    keywords: ['area', 'acre', 'hectare', 'square'],
+    component: from(unitTools, 'UnitConverter'),
+    props: { groupId: 'area' },
+  },
+  {
+    id: 'volume-converter',
+    name: 'Volume Converter',
+    description: 'Litres, gallons, cups and cooking measures.',
+    category: 'converters',
+    icon: Droplet,
+    keywords: ['litre', 'gallon', 'cup', 'cooking'],
+    component: from(unitTools, 'UnitConverter'),
+    props: { groupId: 'volume' },
+  },
+  {
+    id: 'speed-converter',
+    name: 'Speed Converter',
+    description: 'm/s, km/h, mph, knots and feet per second.',
+    category: 'converters',
+    icon: Gauge,
+    keywords: ['speed', 'mph', 'kmh', 'knot'],
+    component: from(unitTools, 'UnitConverter'),
+    props: { groupId: 'speed' },
+  },
+  {
+    id: 'time-converter',
+    name: 'Time Converter',
+    description: 'Milliseconds to days, weeks and years.',
+    category: 'converters',
+    icon: Clock3,
+    keywords: ['time', 'hours', 'minutes', 'seconds'],
+    component: from(unitTools, 'UnitConverter'),
+    props: { groupId: 'time' },
+  },
+  {
+    id: 'data-converter',
+    name: 'Data Storage Converter',
+    description: 'Bits, bytes, KiB, MB and all the rest.',
+    category: 'converters',
+    icon: Database,
+    keywords: ['bytes', 'bits', 'gb', 'gib', 'storage'],
+    component: from(unitTools, 'UnitConverter'),
+    props: { groupId: 'data' },
+  },
+  {
+    id: 'frequency-converter',
+    name: 'Frequency Converter',
+    description: 'Hertz, kilohertz, megahertz and RPM.',
+    category: 'converters',
+    icon: Activity,
+    keywords: ['hz', 'rpm', 'frequency', 'clock'],
+    component: from(unitTools, 'UnitConverter'),
+    props: { groupId: 'frequency' },
+  },
+  {
+    id: 'power-converter',
+    name: 'Power Converter',
+    description: 'Watts, kilowatts, horsepower and BTU/hour.',
+    category: 'converters',
+    icon: Zap,
+    keywords: ['watt', 'kw', 'horsepower', 'energy'],
+    component: from(unitTools, 'UnitConverter'),
+    props: { groupId: 'power' },
+  },
+  {
+    id: 'pressure-converter',
+    name: 'Pressure Converter',
+    description: 'Pascal, bar, PSI, atmosphere and mmHg.',
+    category: 'converters',
+    icon: Gauge,
+    keywords: ['psi', 'bar', 'atm', 'pascal'],
+    component: from(unitTools, 'UnitConverter'),
+    props: { groupId: 'pressure' },
+  },
+  {
+    id: 'energy-converter',
+    name: 'Energy Converter',
+    description: 'Joules, calories, watt-hours and electronvolts.',
+    category: 'converters',
+    icon: Zap,
+    keywords: ['joule', 'calorie', 'kwh', 'ev'],
+    component: from(unitTools, 'UnitConverter'),
+    props: { groupId: 'energy' },
+  },
+  {
+    id: 'currency-converter',
+    name: 'Currency Converter',
+    description: 'Live exchange rates with an offline fallback table.',
+    category: 'converters',
+    icon: CircleDollarSign,
+    keywords: ['money', 'exchange', 'rate', 'usd', 'eur'],
+    component: from(currencyTools, 'CurrencyConverter'),
+    featured: true,
+  },
+
+  // --------------------------------------------------------------------- Color
+  {
+    id: 'color-converter',
+    name: 'Color Code Converter',
+    description: 'Convert between hex, RGB and HSL with live preview.',
+    category: 'color',
+    icon: Droplet,
+    keywords: ['hex', 'rgb', 'hsl', 'color'],
+    component: from(colorTools, 'ColorConverter'),
+    featured: true,
+  },
+  {
+    id: 'color-palette',
+    name: 'Palette Generator',
+    description: 'Build complementary, analogous and monochromatic palettes.',
+    category: 'color',
+    icon: Grid2X2,
+    keywords: ['palette', 'harmony', 'scheme', 'colors'],
+    component: from(colorTools, 'PaletteGenerator'),
+  },
+  {
+    id: 'contrast-checker',
+    name: 'Contrast Checker',
+    description: 'Check WCAG contrast ratios for foreground and background.',
+    category: 'color',
+    icon: Sun,
+    keywords: ['wcag', 'accessibility', 'a11y', 'contrast'],
+    component: from(colorTools, 'ContrastChecker'),
+  },
+
+  // --------------------------------------------------------------------- Image
+  {
+    id: 'image-resizer',
+    name: 'Image Resizer',
+    description: 'Scale images precisely, entirely in your browser.',
+    category: 'image',
+    icon: Maximize2,
+    keywords: ['resize', 'scale', 'dimensions', 'pixels'],
+    component: from(imageTools, 'ImageResizer'),
+  },
+  {
+    id: 'image-cropper',
+    name: 'Image Cropper',
+    description: 'Crop images visually and export the result.',
+    category: 'image',
+    icon: Crop,
+    keywords: ['crop', 'trim', 'cut'],
+    component: from(imageTools, 'ImageCropper'),
+  },
+  {
+    id: 'image-converter',
+    name: 'Image Converter',
+    description: 'Convert PNG, JPG and WebP without uploading anything.',
+    category: 'image',
+    icon: FileImage,
+    keywords: ['png', 'jpg', 'webp', 'format'],
+    component: from(imageTools, 'ImageConverter'),
+  },
+  {
+    id: 'image-compressor',
+    name: 'Image Compressor',
+    description: 'Reduce file size with adjustable quality and max dimensions.',
+    category: 'image',
+    icon: Layers,
+    keywords: ['compress', 'optimize', 'filesize', 'quality'],
+    component: from(imageTools, 'ImageCompressor'),
+  },
+
+  // ------------------------------------------------------------------- Security
+  {
+    id: 'text-encryptor',
+    name: 'Text Encryptor',
+    description: 'Encrypt text with AES-GCM using a password you choose.',
+    category: 'security',
+    icon: Lock,
+    keywords: ['encrypt', 'aes', 'cipher', 'crypto', 'password'],
+    component: from(securityTools, 'TextEncryptor'),
+  },
+  {
+    id: 'text-decryptor',
+    name: 'Text Decryptor',
+    description: 'Decrypt ONEV AES-GCM payloads with the matching password.',
+    category: 'security',
+    icon: Unlock,
+    keywords: ['decrypt', 'aes', 'cipher', 'crypto', 'password'],
+    component: from(securityTools, 'TextDecryptor'),
+  },
+  {
+    id: 'code-encryptor',
+    name: 'Code Encryptor',
+    description: 'Encrypt JS, TS, Python and other source with a password or recovery key.',
+    category: 'security',
+    icon: FileCode2,
+    keywords: ['encrypt', 'code', 'javascript', 'python', 'source', 'wrapper'],
+    component: from(codeCryptoTools, 'CodeEncryptor'),
+  },
+  {
+    id: 'code-decryptor',
+    name: 'Code Decryptor',
+    description: 'Restore encrypted source from an ONEV payload or runnable wrapper.',
+    category: 'security',
+    icon: FileCode,
+    keywords: ['decrypt', 'code', 'javascript', 'python', 'source', 'wrapper'],
+    component: from(codeCryptoTools, 'CodeDecryptor'),
+  },
+  {
+    id: 'password-recovery',
+    name: 'Password Recovery',
+    description: 'Try your own candidate list against an ONEV payload you own. Capped and local.',
+    category: 'security',
+    icon: KeyRound,
+    keywords: ['recover', 'forgot', 'password', 'candidates', 'dictionary'],
+    component: from(codeCryptoTools, 'PasswordRecovery'),
+  },
+
+  // ------------------------------------------------------------------ Utilities
+  {
+    id: 'checklist-maker',
+    name: 'Checklist Maker',
+    description: 'A persistent, no-frills checklist for repeatable tasks.',
+    category: 'utilities',
+    icon: ListChecks,
+    keywords: ['todo', 'tasks', 'checklist'],
+    component: from(utilityTools, 'ChecklistMaker'),
+  },
+  {
+    id: 'bookmark-manager',
+    name: 'Bookmark Manager',
+    description: 'Save links locally with tags and quick search.',
+    category: 'utilities',
+    icon: Bookmark,
+    keywords: ['links', 'saved', 'tags', 'bookmarks'],
+    component: from(utilityTools, 'BookmarkManager'),
+  },
+  {
+    id: 'stopwatch',
+    name: 'Stopwatch',
+    description: 'Precision timer with laps, kept in your browser tab.',
+    category: 'utilities',
+    icon: Timer,
+    keywords: ['timer', 'laps', 'time', 'stopwatch'],
+    component: from(utilityTools, 'Stopwatch'),
+  },
+  {
+    id: 'qr-code-generator',
+    name: 'QR Code Generator',
+    description: 'Create downloadable QR codes for text, links or Wi-Fi.',
+    category: 'utilities',
+    icon: QrCode,
+    keywords: ['qr', 'barcode', 'scan', 'wifi'],
+    component: from(utilityTools, 'QrCodeGenerator'),
+  },
+]
+
+export function getTool(id: string | undefined): ToolMeta | undefined {
+  return TOOLS.find((tool) => tool.id === id)
+}
+
+export function searchTools(query: string): ToolMeta[] {
+  const needle = query.trim().toLowerCase()
+  if (!needle) return TOOLS
+  const terms = needle.split(/\s+/)
+  return TOOLS.filter((tool) => {
+    const haystack = [tool.name, tool.description, tool.category, ...tool.keywords]
+      .join(' ')
+      .toLowerCase()
+    return terms.every((term) => haystack.includes(term))
+  }).sort((a, b) => {
+    const aScore = scoreMatch(a, needle)
+    const bScore = scoreMatch(b, needle)
+    return bScore - aScore
+  })
+}
+
+function scoreMatch(tool: ToolMeta, needle: string): number {
+  const name = tool.name.toLowerCase()
+  if (name === needle) return 4
+  if (name.startsWith(needle)) return 3
+  if (name.includes(needle)) return 2
+  return tool.keywords.some((keyword) => keyword.includes(needle)) ? 1 : 0
+}
+
+export function getRelatedTools(tool: ToolMeta, limit = 4): ToolMeta[] {
+  return TOOLS.filter((candidate) => candidate.id !== tool.id && candidate.category === tool.category).slice(
+    0,
+    limit,
+  )
+}
+
+export const FEATURED_TOOLS = TOOLS.filter((tool) => tool.featured)
+export const TOTAL_TOOLS = TOOLS.length

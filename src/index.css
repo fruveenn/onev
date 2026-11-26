@@ -1,0 +1,164 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+  color-scheme: dark;
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  @apply bg-base text-ink font-sans antialiased;
+  min-height: 100vh;
+}
+
+body::before {
+  content: '';
+  position: fixed;
+  inset: 0;
+  pointer-events: none;
+  z-index: 0;
+  background:
+    radial-gradient(900px 420px at 78% -10%, rgba(198, 243, 107, 0.045), transparent 70%),
+    radial-gradient(700px 360px at 10% 0%, rgba(154, 217, 160, 0.04), transparent 70%);
+}
+
+#root {
+  position: relative;
+  z-index: 1;
+}
+
+::selection {
+  background: rgba(198, 243, 107, 0.26);
+  color: #141710;
+}
+
+* {
+  scrollbar-width: thin;
+  scrollbar-color: #3a4038 transparent;
+}
+
+::-webkit-scrollbar {
+  width: 10px;
+  height: 10px;
+}
+
+::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+::-webkit-scrollbar-thumb {
+  background: #343a32;
+  border-radius: 999px;
+  border: 3px solid transparent;
+  background-clip: content-box;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: #4b5348;
+  background-clip: content-box;
+}
+
+@layer components {
+  .card {
+    @apply rounded-xl border border-line/80 bg-panel shadow-card;
+  }
+
+  .input {
+    @apply w-full rounded-lg border border-line bg-panel-soft px-3 py-2.5 text-sm text-ink outline-none transition placeholder:text-slate-500 focus:border-cyan/50 focus:ring-2 focus:ring-cyan/10;
+  }
+
+  .input-mono {
+    @apply input font-mono text-[13px];
+  }
+
+  .label {
+    @apply mb-1.5 block text-[11px] font-semibold uppercase tracking-[0.12em] text-muted;
+  }
+
+  .btn {
+    @apply inline-flex items-center justify-center gap-2 rounded-lg px-3.5 py-2 text-sm font-medium transition disabled:cursor-not-allowed disabled:opacity-40;
+  }
+
+  .btn-primary {
+    @apply btn bg-gradient-to-r from-cyan to-electric text-slate-950 shadow-[0_6px_20px_-10px_rgba(198,243,107,.65)] hover:brightness-110;
+  }
+
+  .btn-ghost {
+    @apply btn border border-line bg-panel-soft text-muted hover:border-cyan/40 hover:text-ink;
+  }
+
+  .btn-icon {
+    @apply inline-flex h-9 w-9 shrink-0 items-center justify-center rounded-lg border border-line bg-panel-soft text-muted transition hover:border-cyan/40 hover:text-cyan;
+  }
+
+  .chip {
+    @apply inline-flex items-center gap-1.5 rounded-full border border-line bg-panel-soft px-2.5 py-1 text-xs font-medium text-muted;
+  }
+
+  .chip-active {
+    @apply border-cyan/40 bg-cyan/10 text-cyan;
+  }
+
+  .section-title {
+    @apply text-[13px] font-semibold uppercase tracking-[0.14em] text-muted;
+  }
+
+  .field-hint {
+    @apply mt-1.5 text-xs leading-relaxed text-slate-500;
+  }
+
+  .divider {
+    @apply border-t border-line/80;
+  }
+}
+
+.grid-surface {
+  background-image: radial-gradient(rgba(209, 213, 203, 0.09) 1px, transparent 1px);
+  background-size: 22px 22px;
+  mask-image: linear-gradient(to bottom, black, transparent 78%);
+}
+
+.text-gradient {
+  @apply bg-gradient-to-r from-cyan to-electric bg-clip-text text-transparent;
+}
+
+.focus-ring {
+  @apply focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-cyan/60 focus-visible:ring-offset-2 focus-visible:ring-offset-base;
+}
+
+.markdown-body {
+  @apply text-[13px] leading-relaxed text-muted;
+}
+
+.markdown-body > * + * {
+  @apply mt-3;
+}
+
+.markdown-body h1,
+.markdown-body h2,
+.markdown-body h3,
+.markdown-body h4 {
+  @apply font-semibold tracking-tight text-ink;
+}
+
+.markdown-body h1 { @apply text-2xl; }
+.markdown-body h2 { @apply text-xl; }
+.markdown-body h3 { @apply text-lg; }
+
+.markdown-body strong { @apply font-semibold text-ink; }
+.markdown-body a { @apply text-cyan underline underline-offset-2; }
+.markdown-body ul { @apply list-disc space-y-1 pl-5; }
+.markdown-body ol { @apply list-decimal space-y-1 pl-5; }
+.markdown-body blockquote { @apply border-l-2 border-cyan/50 pl-3 italic text-slate-400; }
+.markdown-body code { @apply rounded bg-slate-800/80 px-1.5 py-0.5 font-mono text-[12px] text-cyan; }
+.markdown-body pre { @apply overflow-auto rounded-lg border border-line bg-panel p-3.5; }
+.markdown-body pre code { @apply bg-transparent p-0 text-slate-300; }
+.markdown-body table { @apply w-full border-collapse text-left; }
+.markdown-body th,
+.markdown-body td { @apply border border-line px-2.5 py-1.5; }
+.markdown-body th { @apply bg-panel font-semibold text-ink; }
+.markdown-body hr { @apply border-line; }
