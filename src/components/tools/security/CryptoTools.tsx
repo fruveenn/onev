@@ -81,8 +81,8 @@ export function TextEncryptor() {
   }
 
   return (
-    <div className="grid gap-5 lg:grid-cols-[minmax(0,1fr)_minmax(0,1fr)]">
-      <div className="space-y-5">
+    <div className="grid min-w-0 gap-5 lg:grid-cols-[minmax(0,1fr)_minmax(0,1fr)]">
+      <div className="min-w-0 space-y-5">
         <Panel title="Plaintext" subtitle="Anything you type stays in this browser tab.">
           <textarea
             value={plainText}
@@ -143,7 +143,7 @@ export function TextEncryptor() {
         </Panel>
       </div>
 
-      <div className="space-y-5">
+      <div className="min-w-0 space-y-5">
         <Panel
           title="Encrypted payload"
           subtitle="Copy this whole JSON block to the Decrypt tool."
@@ -198,8 +198,8 @@ export function TextDecryptor() {
   }
 
   return (
-    <div className="grid gap-5 lg:grid-cols-[minmax(0,1fr)_minmax(0,1fr)]">
-      <div className="space-y-5">
+    <div className="grid min-w-0 gap-5 lg:grid-cols-[minmax(0,1fr)_minmax(0,1fr)]">
+      <div className="min-w-0 space-y-5">
         <Panel title="Encrypted payload" subtitle="Paste the JSON produced by the Encrypt tool.">
           <textarea
             value={payload}
@@ -231,7 +231,7 @@ export function TextDecryptor() {
         </Panel>
       </div>
 
-      <div className="space-y-5">
+      <div className="min-w-0 space-y-5">
         <Panel
           title="Decrypted text"
           subtitle="Shown only after the authentication tag is verified."

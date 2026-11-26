@@ -250,8 +250,8 @@ export function CodeEncryptor() {
   }
 
   return (
-    <div className="grid gap-5 lg:grid-cols-[minmax(0,1fr)_minmax(0,1fr)]">
-      <div className="space-y-5">
+    <div className="grid min-w-0 gap-5 lg:grid-cols-[minmax(0,1fr)_minmax(0,1fr)]">
+      <div className="min-w-0 space-y-5">
         <Panel
           title="Source code"
           subtitle="JS, TS, Python, Go, Rust and more — nothing leaves this tab."
@@ -370,7 +370,7 @@ export function CodeEncryptor() {
         </Panel>
       </div>
 
-      <div className="space-y-5">
+      <div className="min-w-0 space-y-5">
         <Panel
           title={wrapperMode ? 'Runnable wrapper' : 'Encrypted payload'}
           subtitle={
@@ -448,8 +448,8 @@ export function CodeDecryptor() {
   }
 
   return (
-    <div className="grid gap-5 lg:grid-cols-[minmax(0,1fr)_minmax(0,1fr)]">
-      <div className="space-y-5">
+    <div className="grid min-w-0 gap-5 lg:grid-cols-[minmax(0,1fr)_minmax(0,1fr)]">
+      <div className="min-w-0 space-y-5">
         <Panel
           title="Encrypted input"
           subtitle="Paste the JSON payload or the full generated wrapper."
@@ -532,7 +532,7 @@ export function CodeDecryptor() {
         </Panel>
       </div>
 
-      <div className="space-y-5">
+      <div className="min-w-0 space-y-5">
         <Panel
           title="Restored source"
           subtitle="Shown only after the authentication tag is verified."
@@ -619,8 +619,8 @@ export function PasswordRecovery() {
   const percent = progress.total ? Math.round((progress.attempts / progress.total) * 100) : 0
 
   return (
-    <div className="grid gap-5 lg:grid-cols-[minmax(0,1fr)_minmax(0,1fr)]">
-      <div className="space-y-5">
+    <div className="grid min-w-0 gap-5 lg:grid-cols-[minmax(0,1fr)_minmax(0,1fr)]">
+      <div className="min-w-0 space-y-5">
         <Panel
           title="Your ONEV payload"
           subtitle="Only ONEV-format payloads are accepted."
@@ -762,7 +762,7 @@ export function PasswordRecovery() {
         </Panel>
       </div>
 
-      <div className="space-y-5">
+      <div className="min-w-0 space-y-5">
         <Panel title="Hasil" subtitle="Ditemukan hanya jika tag autentikasi AES-GCM cocok.">
           {!result ? (
             <p className="text-xs text-muted">Belum ada percobaan dijalankan.</p>

@@ -24,7 +24,9 @@ export function ResultBox({
   actions,
 }: ResultBoxProps) {
   return (
-    <div className={cn('rounded-lg border border-line/70 bg-panel-soft/70 p-3.5', className)}>
+    <div
+      className={cn('min-w-0 max-w-full rounded-lg border border-line/70 bg-panel-soft/70 p-3.5', className)}
+    >
       {(label || actions || value) && (
         <div className="mb-2 flex items-center justify-between gap-3">
           {label && <span className="label !mb-0">{label}</span>}
@@ -36,7 +38,7 @@ export function ResultBox({
       )}
       <div
         className={cn(
-          'select-all whitespace-pre-wrap break-words text-ink',
+          'select-all min-w-0 max-w-full whitespace-pre-wrap break-all text-ink',
           mono ? 'font-mono text-[13px] leading-relaxed' : 'text-sm leading-relaxed',
         )}
         style={minHeight ? { minHeight } : undefined}
