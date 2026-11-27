@@ -219,7 +219,7 @@ export function CodeEncryptor() {
   const [password, setPassword] = useState('')
   const [recoveryKey, setRecoveryKey] = useState('')
   const [iterations, setIterations] = useState(String(ENCRYPTION_ITERATIONS))
-  const [outputMode, setOutputMode] = useState<'payload' | 'wrapper'>('payload')
+  const [outputMode, setOutputMode] = useState<'payload' | 'wrapper'>('wrapper')
   const [result, setResult] = useState('')
   const [error, setError] = useState('')
   const [busy, setBusy] = useState(false)
@@ -262,7 +262,7 @@ export function CodeEncryptor() {
               onLoad={(filename, content) => {
                 setLanguage(languageFromFilename(filename))
                 setSource(content)
-                setOutputMode('payload')
+                setOutputMode('wrapper')
                 resetResult()
               }}
             />
@@ -273,7 +273,7 @@ export function CodeEncryptor() {
               value={language}
               onChange={(event) => {
                 setLanguage(event.target.value as CodeLanguage)
-                setOutputMode('payload')
+                setOutputMode('wrapper')
                 resetResult()
               }}
               className="input"
@@ -329,9 +329,9 @@ export function CodeEncryptor() {
             <Field
               label="Output format"
               hint={
-                languageInfo.wrapper
+                languageInfo.runnable
                   ? 'Wrapper prints the restored source; payload is plain JSON.'
-                  : 'Runnable wrappers are available for JavaScript, TypeScript and Python.'
+                  : 'Wrapper keeps the original file format; restore it with Code Decryptor.'
               }
             >
               <Segmented
@@ -341,14 +341,13 @@ export function CodeEncryptor() {
                   setOutputMode(value)
                   resetResult()
                 }}
-                options={
-                  languageInfo.wrapper
-                    ? [
-                        { value: 'payload', label: 'JSON payload' },
-                        { value: 'wrapper', label: 'Runnable wrapper' },
-                      ]
-                    : [{ value: 'payload', label: 'JSON payload' }]
-                }
+                options={[
+                  { value: 'payload', label: 'JSON payload' },
+                  {
+                    value: 'wrapper',
+                    label: languageInfo.runnable ? 'Runnable wrapper' : 'Source wrapper',
+                  },
+                ]}
               />
             </Field>
           </div>
@@ -372,10 +371,18 @@ export function CodeEncryptor() {
 
       <div className="min-w-0 space-y-5">
         <Panel
-          title={wrapperMode ? 'Runnable wrapper' : 'Encrypted payload'}
+          title={
+            wrapperMode
+              ? languageInfo.runnable
+                ? 'Runnable wrapper'
+                : `${languageInfo.label} wrapper`
+              : 'Encrypted payload'
+          }
           subtitle={
             wrapperMode
-              ? 'Set ONEV_PASSWORD (or ONEV_RECOVERY_KEY) and run the file to print your source.'
+              ? languageInfo.runnable
+                ? 'Set ONEV_PASSWORD (or ONEV_RECOVERY_KEY) and run the file to print your source.'
+                : `Paste this file into Code Decryptor with the matching key to restore .${languageInfo.extension} source.`
               : 'Feed this to Code Decryptor with the matching key.'
           }
           action={
@@ -385,7 +392,7 @@ export function CodeEncryptor() {
                 onClick={() =>
                   downloadText(
                     wrapperMode
-                      ? `onev-restored.${languageInfo.extension}`
+                      ? `onev-encrypted.${languageInfo.extension}`
                       : 'onev-code-encrypted.json',
                     result,
                     wrapperMode ? 'text/plain' : 'application/json',
@@ -403,7 +410,7 @@ export function CodeEncryptor() {
             minHeight="300px"
             copyLabel={wrapperMode ? 'Copy wrapper' : 'Copy payload'}
             downloadFilename={
-              wrapperMode ? `onev-restored.${languageInfo.extension}` : 'onev-code-encrypted.json'
+              wrapperMode ? `onev-encrypted.${languageInfo.extension}` : 'onev-code-encrypted.json'
             }
             downloadMime={wrapperMode ? 'text/plain' : 'application/json'}
           />
@@ -416,7 +423,10 @@ export function CodeEncryptor() {
               payload so a forgotten password is not fatal.
             </li>
             <li>• Keep the key in a different place from the encrypted file.</li>
-            <li>• Wrappers only print the restored source — uncomment the exec line to run it.</li>
+            <li>
+              • Runnable wrappers print the restored source; other languages keep their file format
+              and are restored here with the matching key.
+            </li>
           </ul>
         </Panel>
       </div>
@@ -460,7 +470,7 @@ export function CodeDecryptor() {
           action={
             <div className="flex gap-2">
               <FilePicker
-                accept=".json,.js,.ts,.py,.txt"
+                accept=".json,.js,.jsx,.mjs,.cjs,.ts,.tsx,.py,.pyw,.go,.rs,.php,.java,.cs,.sql,.sh,.txt"
                 label="Load file"
                 onLoad={(filename, content) => {
                   setInput(content)

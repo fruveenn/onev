@@ -178,6 +178,7 @@ props: { groupId: 'length' },
 - Favorites, recents, checklists, bookmarks and recently copied emojis are stored in `localStorage` under `onev:*` keys. They never leave the device.
 - Image tools use the Canvas API and object URLs; image bytes are never uploaded.
 - Password and UUID generation use `crypto.getRandomValues` / `crypto.randomUUID`.
+- Code Encryptor outputs a wrapper in the uploaded file's own format (for example `.py` for Python, `.js` for JavaScript). JavaScript, TypeScript and Python wrappers decrypt themselves; every other language gets a same-format wrapper that Code Decryptor restores with the matching key.
 - Markdown output is sanitized with DOMPurify before rendering.
 - The expression calculator uses a hand-written shunting-yard parser — no `eval()` or `new Function()`.
 - Currency rates come from `open.er-api.com`, with `frankfurter.app` as a second provider. If both are unreachable, ONEV uses a clearly-labelled bundled snapshot (`src/lib/currency.ts`) and displays an "Offline snapshot" notice. Rates are cached in memory for 30 minutes per base currency.
@@ -192,7 +193,7 @@ Tests cover the pure logic layer and run with Vitest:
 npm test
 ```
 
-Current suite: 46 tests across text transforms, unit conversions (including round-trip checks for every unit pair), arithmetic parsing, percentages, age, bill splitting, statistics, colors/contrast, generators, currency conversion, AES-GCM crypto/recovery, code wrappers and language translations.
+Current suite: 48 tests across text transforms, unit conversions (including round-trip checks for every unit pair), arithmetic parsing, percentages, age, bill splitting, statistics, colors/contrast, generators, currency conversion, AES-GCM crypto/recovery, code wrappers and language translations.
 
 ---
 

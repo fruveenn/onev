@@ -37,13 +37,33 @@ describe('codeCrypto', () => {
     expect(JSON.parse(extractPayload(wrapper))).toEqual(payload)
   })
 
-  it('handles recovery-mode wrappers and unsupported languages', () => {
+  it('handles recovery-mode wrappers', () => {
     const recoveryPayload: EncryptedPayload = { ...payload, mode: 'recovery', iterations: 0 }
 
     expect(buildJavaScriptWrapper(recoveryPayload)).toContain('ONEV_RECOVERY_KEY')
     expect(buildPythonWrapper(recoveryPayload)).toContain('ONEV_RECOVERY_KEY')
-    expect(buildWrapper(payload, 'go')).toBe('')
     expect(buildWrapper(payload, 'python')).toContain('AESGCM')
+  })
+
+  it('builds a format-matched wrapper in every language and round-trips the payload', () => {
+    for (const language of CODE_LANGUAGES) {
+      const wrapper = buildWrapper(payload, language.id)
+
+      expect(JSON.parse(extractPayload(wrapper))).toEqual(payload)
+
+      if (language.runnable) {
+        expect(wrapper).toContain('ONEV self-decrypting wrapper')
+      } else {
+        expect(wrapper).toContain(`ONEV encrypted source — ${language.label}`)
+        const comment = ['python', 'bash', 'text'].includes(language.id)
+          ? '#'
+          : language.id === 'sql'
+            ? '--'
+            : '//'
+        expect(wrapper).toContain(`${comment} ONEV_PAYLOAD_BEGIN`)
+        expect(wrapper).toContain(`.${language.extension} format`)
+      }
+    }
   })
 
   it('passes JSON through and rejects unknown input', () => {

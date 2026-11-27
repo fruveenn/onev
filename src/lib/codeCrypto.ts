@@ -17,21 +17,24 @@ export interface LanguageOption {
   id: CodeLanguage
   label: string
   extension: string
+  /** A wrapper is available for every language so the output keeps the source format. */
   wrapper: boolean
+  /** Only these languages can decrypt the payload by themselves. */
+  runnable: boolean
 }
 
 export const CODE_LANGUAGES: LanguageOption[] = [
-  { id: 'javascript', label: 'JavaScript', extension: 'js', wrapper: true },
-  { id: 'typescript', label: 'TypeScript', extension: 'ts', wrapper: true },
-  { id: 'python', label: 'Python', extension: 'py', wrapper: true },
-  { id: 'go', label: 'Go', extension: 'go', wrapper: false },
-  { id: 'rust', label: 'Rust', extension: 'rs', wrapper: false },
-  { id: 'php', label: 'PHP', extension: 'php', wrapper: false },
-  { id: 'java', label: 'Java', extension: 'java', wrapper: false },
-  { id: 'csharp', label: 'C#', extension: 'cs', wrapper: false },
-  { id: 'sql', label: 'SQL', extension: 'sql', wrapper: false },
-  { id: 'bash', label: 'Bash', extension: 'sh', wrapper: false },
-  { id: 'text', label: 'Plain text', extension: 'txt', wrapper: false },
+  { id: 'javascript', label: 'JavaScript', extension: 'js', wrapper: true, runnable: true },
+  { id: 'typescript', label: 'TypeScript', extension: 'ts', wrapper: true, runnable: true },
+  { id: 'python', label: 'Python', extension: 'py', wrapper: true, runnable: true },
+  { id: 'go', label: 'Go', extension: 'go', wrapper: true, runnable: false },
+  { id: 'rust', label: 'Rust', extension: 'rs', wrapper: true, runnable: false },
+  { id: 'php', label: 'PHP', extension: 'php', wrapper: true, runnable: false },
+  { id: 'java', label: 'Java', extension: 'java', wrapper: true, runnable: false },
+  { id: 'csharp', label: 'C#', extension: 'cs', wrapper: true, runnable: false },
+  { id: 'sql', label: 'SQL', extension: 'sql', wrapper: true, runnable: false },
+  { id: 'bash', label: 'Bash', extension: 'sh', wrapper: true, runnable: false },
+  { id: 'text', label: 'Plain text', extension: 'txt', wrapper: true, runnable: false },
 ]
 
 export function getLanguage(id: string): LanguageOption {
@@ -165,16 +168,58 @@ print(plain.decode())
 `
 }
 
+/** Comment syntax used by each language for a source-shaped wrapper. */
+const COMMENT: Record<CodeLanguage, string> = {
+  javascript: '//',
+  typescript: '//',
+  python: '#',
+  go: '//',
+  rust: '//',
+  php: '//',
+  java: '//',
+  csharp: '//',
+  sql: '--',
+  bash: '#',
+  text: '#',
+}
+
+/**
+ * Source-shaped wrapper for languages without a built-in decrypt script.
+ * The payload stays in the original language's format instead of becoming raw JSON.
+ */
+export function buildSourceWrapper(payload: EncryptedPayload, language: CodeLanguage): string {
+  const comment = COMMENT[language]
+  const info = getLanguage(language)
+  const json = JSON.stringify(payload, null, 2)
+
+  return [
+    `${comment} ONEV encrypted source — ${info.label}`,
+    `${comment} Restore with ONEV Code Decryptor using the matching password or recovery key.`,
+    `${comment} The restored source keeps the original .${info.extension} format.`,
+    '',
+    `${comment} ONEV_PAYLOAD_BEGIN`,
+    json,
+    `${comment} ONEV_PAYLOAD_END`,
+    '',
+    `${comment} To restore: open ONEV → Code Decryptor and paste this whole file.`,
+  ].join('\n')
+}
+
 export function buildWrapper(payload: EncryptedPayload, language: CodeLanguage): string {
   if (language === 'javascript' || language === 'typescript') return buildJavaScriptWrapper(payload)
   if (language === 'python') return buildPythonWrapper(payload)
-  return ''
+  return buildSourceWrapper(payload, language)
 }
 
 /** Pull the embedded ONEV payload back out of a generated wrapper (or pass JSON through). */
 export function extractPayload(input: string): string {
   const trimmed = input.trim()
   if (trimmed.startsWith('{')) return trimmed
+
+  const marked = trimmed.match(
+    /ONEV_PAYLOAD_BEGIN\s*([\s\S]*?)\s*(?:\/\/|#|--)?\s*ONEV_PAYLOAD_END/,
+  )
+  if (marked) return marked[1].trim()
 
   const javascript = trimmed.match(/const PAYLOAD = (\{[\s\S]*?\});/)
   if (javascript) return javascript[1]
